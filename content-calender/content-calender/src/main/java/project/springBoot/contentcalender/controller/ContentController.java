@@ -1,11 +1,9 @@
 package project.springBoot.contentcalender.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import project.springBoot.contentcalender.model.Content;
 import project.springBoot.contentcalender.repository.ContentCollectionRepository;
@@ -15,6 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/content")
+@CrossOrigin
 public class ContentController {
     private final ContentCollectionRepository repository;
 
@@ -34,4 +33,24 @@ public class ContentController {
         return repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "ContentNotFound"));
     }
 
+    @ResponseStatus(HttpStatus.CREATED) //used to show that something created
+    @PostMapping("")
+    public void createContent(@Valid @RequestBody Content content){
+        repository.save(content);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PutMapping("/{id}")
+    public void update(@RequestBody Content content, @PathVariable Integer id){
+        if(!repository.existsById(id)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "content not found");
+        }
+        repository.save(content);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Integer id){
+        repository.delete(id);
+    }
 }
