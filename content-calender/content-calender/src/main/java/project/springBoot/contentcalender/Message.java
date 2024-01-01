@@ -1,2 +1,10 @@
-package project.springBoot.contentcalender;public class Message {
+package project.springBoot.contentcalender;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class Message {
+    public String getMessage(){
+        return "HelloWorld";
+    }
 }
