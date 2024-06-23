@@ -8,6 +8,7 @@ import com.shoppingApp.order_service.model.Order;
 import com.shoppingApp.order_service.model.OrderLineItems;
 import com.shoppingApp.order_service.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -19,6 +20,7 @@ import java.util.UUID;
 @Service
 public class OrderService {
     private final OrderRepository orderRepository;
+    @Autowired
     private final WebClient.Builder webClientBuilder;
 
     public void placeOrder(OrderRequest orderRequest){
