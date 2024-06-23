@@ -1,13 +1,13 @@
 package com.shoppingApp.order_service.dto;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 @Data
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class InventoryResponse {
-    String skuCode;
-    Boolean isInStock;
+    private String skuCode;
+    private Boolean isInStock;
+    private Integer quantity;
 }
